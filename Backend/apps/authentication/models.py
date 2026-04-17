@@ -112,3 +112,19 @@ class UserProfile(TimestampedModel):
         return f"Profile: {self.user.email}"
 
 
+class LoginActivity(TimestampedModel):
+    """Audit log for login events."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="login_activities")
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(blank=True)
+    status = models.CharField(
+        max_length=10,
+        choices=[("success", "Success"), ("failed", "Failed")],
+    )
+
+    class Meta:
+        db_table = "login_activities"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user.email} - {self.status} @ {self.created_at}"

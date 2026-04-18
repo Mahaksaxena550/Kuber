@@ -136,9 +136,8 @@ class ChangePasswordView(views.APIView):
         serializer = ChangePasswordSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         request.user.set_password(serializer.validated_data["new_password"])
-        request.user.save(update_fields=["password"])
+        request.user.save()
         return Response({"success": True, "message": "Password changed."})
-
 
 class MyLoginActivityView(generics.ListAPIView):
     """Paginated login history for the current user."""

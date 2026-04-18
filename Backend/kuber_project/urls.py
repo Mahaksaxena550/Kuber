@@ -16,6 +16,7 @@ urlpatterns = [
     path("api/v1/market/", include("apps.market.urls")),
     path("api/v1/orders/", include("apps.orders.urls")),
     path("api/v1/portfolio/", include("apps.portfolio.urls")),
+    path("api/v1/wallet/", include("apps.wallet.urls")),
     # Docs
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),

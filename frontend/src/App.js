@@ -11,6 +11,7 @@ import Portfolio from "./pages/Portfolio";
 import WalletPage from "./pages/Wallet";
 import Orders from "./pages/Orders";
 import Subscriptions from "./pages/Subscriptions";
+import AiBot from "./pages/AiBot";
 
 export default function App() {
   return (
@@ -94,8 +95,7 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Layout>
-                  <h1 className="text-2xl font-bold text-gray-900">AI Bot</h1>
-                  <p className="text-gray-500 mt-2">AI Bot page coming soon...</p>
+                  <AiBot />
                 </Layout>
               </ProtectedRoute>
             }

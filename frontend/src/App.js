@@ -6,6 +6,7 @@ import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Market from "./pages/Market";
 
 export default function App() {
   return (
@@ -33,8 +34,7 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Layout>
-                  <h1 className="text-2xl font-bold text-gray-900">Market</h1>
-                  <p className="text-gray-500 mt-2">Market page coming soon...</p>
+                  <Market />
                 </Layout>
               </ProtectedRoute>
             }

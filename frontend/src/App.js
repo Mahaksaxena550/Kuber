@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
@@ -21,8 +22,7 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Layout>
-                  <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-                  <p className="text-gray-500 mt-2">Welcome to Kuber! Full dashboard coming soon...</p>
+                  <Dashboard />
                 </Layout>
               </ProtectedRoute>
             }

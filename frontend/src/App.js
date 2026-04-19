@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Market from "./pages/Market";
+import Portfolio from "./pages/Portfolio";
 
 export default function App() {
   return (
@@ -57,8 +58,7 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Layout>
-                  <h1 className="text-2xl font-bold text-gray-900">Portfolio</h1>
-                  <p className="text-gray-500 mt-2">Portfolio page coming soon...</p>
+                  <Portfolio />
                 </Layout>
               </ProtectedRoute>
             }

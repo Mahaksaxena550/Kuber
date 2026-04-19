@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Market from "./pages/Market";
 import Portfolio from "./pages/Portfolio";
+import WalletPage from "./pages/Wallet";
 
 export default function App() {
   return (
@@ -69,8 +70,7 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Layout>
-                  <h1 className="text-2xl font-bold text-gray-900">Wallet</h1>
-                  <p className="text-gray-500 mt-2">Wallet page coming soon...</p>
+                  <WalletPage />
                 </Layout>
               </ProtectedRoute>
             }

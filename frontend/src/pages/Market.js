@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import marketService from "../services/marketService";
+import TradingViewChart from "../components/market/TradingViewChart";
 import { MdSearch, MdTrendingUp, MdTrendingDown } from "react-icons/md";
 
 export default function Market() {
   const [instruments, setInstruments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all"); // all, stock, crypto
+  const [filter, setFilter] = useState("all");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedChart, setSelectedChart] = useState("RELIANCE");
 
   useEffect(() => {
     fetchInstruments();
@@ -50,7 +52,6 @@ export default function Market() {
       {/* Search & Filter Bar */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 mb-6">
         <div className="flex flex-col sm:flex-row gap-3">
-          {/* Search */}
           <form onSubmit={handleSearch} className="flex-1 relative">
             <MdSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
             <input
@@ -62,7 +63,6 @@ export default function Market() {
             />
           </form>
 
-          {/* Filter buttons */}
           <div className="flex gap-2">
             {[
               { value: "all", label: "All" },
@@ -85,9 +85,31 @@ export default function Market() {
         </div>
       </div>
 
+      {/* TradingView Chart */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm mb-6 overflow-hidden">
+        <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+          <h2 className="font-semibold text-gray-900">Live Chart</h2>
+          <div className="flex gap-2">
+            {["RELIANCE", "TCS", "HDFCBANK", "BTCUSDT", "ETHUSDT"].map((sym) => (
+              <button
+                key={sym}
+                onClick={() => setSelectedChart(sym)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition
+                  ${selectedChart === sym
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+              >
+                {sym}
+              </button>
+            ))}
+          </div>
+        </div>
+        <TradingViewChart symbol={selectedChart} />
+      </div>
+
       {/* Instruments Table */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        {/* Table Header */}
         <div className="grid grid-cols-12 gap-4 px-5 py-3 bg-gray-50 text-sm font-medium text-gray-500 border-b border-gray-100">
           <div className="col-span-4">Instrument</div>
           <div className="col-span-2 text-right">LTP</div>
@@ -96,7 +118,6 @@ export default function Market() {
           <div className="col-span-2 text-right">Market Cap</div>
         </div>
 
-        {/* Table Body */}
         {loading ? (
           <div className="flex justify-center items-center h-40">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
@@ -107,7 +128,6 @@ export default function Market() {
               key={item.id}
               className="grid grid-cols-12 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              {/* Instrument info */}
               <div className="col-span-4 flex items-center gap-3">
                 <div
                   className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm
@@ -123,14 +143,12 @@ export default function Market() {
                 </div>
               </div>
 
-              {/* LTP */}
               <div className="col-span-2 flex items-center justify-end">
                 <span className="font-medium text-gray-900">
                   ₹{formatPrice(item.price?.ltp)}
                 </span>
               </div>
 
-              {/* Change */}
               <div className="col-span-2 flex items-center justify-end">
                 {Number(item.price?.change_pct) >= 0 ? (
                   <span className="flex items-center gap-1 text-green-600 text-sm font-medium">
@@ -145,14 +163,12 @@ export default function Market() {
                 )}
               </div>
 
-              {/* Volume */}
               <div className="col-span-2 flex items-center justify-end">
                 <span className="text-sm text-gray-600">
                   {Number(item.price?.volume || 0).toLocaleString("en-IN")}
                 </span>
               </div>
 
-              {/* Market Cap */}
               <div className="col-span-2 flex items-center justify-end">
                 <span className="text-sm text-gray-600">
                   {item.market_cap
@@ -169,7 +185,6 @@ export default function Market() {
           </div>
         )}
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100">
             <button

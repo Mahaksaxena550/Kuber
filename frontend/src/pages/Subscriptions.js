@@ -37,14 +37,50 @@ export default function Subscriptions() {
   const handleSubscribe = async (planId) => {
     setSubscribing(true);
     try {
-      await subscriptionService.subscribe({
-        plan_id: planId,
-        gateway: "razorpay",
-      });
-      toast.success("Subscription activated!");
-      fetchData();
+      // Step 1: Create Razorpay order
+      const res = await subscriptionService.createOrder(planId);
+      const orderData = res.data.data;
+
+      // Step 2: Open Razorpay checkout popup
+      const options = {
+        key: orderData.key_id,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "Kuber Trading Platform",
+        description: `Subscribe to ${orderData.plan_name}`,
+        order_id: orderData.order_id,
+        handler: async function (response) {
+          // Step 3: Verify payment on backend
+          try {
+            const verifyRes = await subscriptionService.verifyPayment({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
+            toast.success(verifyRes.data.message || "Subscription activated!");
+            fetchData();
+          } catch (error) {
+            toast.error("Payment verification failed");
+          }
+        },
+        prefill: {
+          email: "ravi@gmail.com",
+        },
+        theme: {
+          color: "#2563eb",
+        },
+        modal: {
+          ondismiss: function () {
+            setSubscribing(false);
+            toast.error("Payment cancelled");
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Subscription failed");
+      toast.error(error.response?.data?.message || "Failed to create order");
     } finally {
       setSubscribing(false);
     }
@@ -124,7 +160,6 @@ export default function Subscriptions() {
         <p className="text-gray-500 mt-2">Choose the plan that fits your trading needs</p>
       </div>
 
-      {/* Current Subscription Banner */}
       {currentSub && (
         <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 border border-yellow-200 rounded-xl p-4 mb-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -147,7 +182,6 @@ export default function Subscriptions() {
         </div>
       )}
 
-      {/* Plans Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {plans.map((plan) => {
           const isCurrentPlan = currentSub?.plan?.id === plan.id;
@@ -158,7 +192,6 @@ export default function Subscriptions() {
               key={plan.id}
               className={`bg-white rounded-xl border-2 shadow-sm overflow-hidden transition-transform hover:-translate-y-1 ${getPlanColor(plan.tier)}`}
             >
-              {/* Plan Header */}
               <div className="p-6 text-center border-b border-gray-100">
                 {getPlanIcon(plan.tier)}
                 <h3 className="text-lg font-bold text-gray-900 mt-3">{plan.name}</h3>
@@ -170,7 +203,6 @@ export default function Subscriptions() {
                 </div>
               </div>
 
-              {/* Features */}
               <div className="p-6">
                 <ul className="space-y-3">
                   {features.map((feature, idx) => (
@@ -187,7 +219,6 @@ export default function Subscriptions() {
                   ))}
                 </ul>
 
-                {/* Action Button */}
                 <button
                   onClick={() => handleSubscribe(plan.id)}
                   disabled={isCurrentPlan || subscribing || plan.tier === "free"}

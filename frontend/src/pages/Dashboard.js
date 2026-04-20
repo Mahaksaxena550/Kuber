@@ -57,7 +57,7 @@ export default function Dashboard() {
   return (
     <div>
       {/* Welcome */}
-      <div className="mb-6">
+      <div className="mb-6 animate-fade-in">
         <h1 className="text-2xl font-bold text-gray-900">
           Welcome back, {user?.first_name}!
         </h1>
@@ -65,9 +65,9 @@ export default function Dashboard() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 animate-slide-up">
         {/* Portfolio Value */}
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm card-hover">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500">Portfolio Value</span>
             <MdPieChart className="text-blue-500 text-xl" />
@@ -83,7 +83,7 @@ export default function Dashboard() {
         </div>
 
         {/* Wallet Balance */}
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm card-hover">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500">Wallet Balance</span>
             <MdAccountBalanceWallet className="text-green-500 text-xl" />
@@ -97,7 +97,7 @@ export default function Dashboard() {
         </div>
 
         {/* Total Invested */}
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm card-hover">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500">Total Invested</span>
             <MdShowChart className="text-purple-500 text-xl" />
@@ -111,7 +111,7 @@ export default function Dashboard() {
         </div>
 
         {/* Orders */}
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm card-hover">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500">Total Orders</span>
             <MdShoppingCart className="text-orange-500 text-xl" />
@@ -126,7 +126,7 @@ export default function Dashboard() {
       </div>
 
       {/* Two columns — Top Gainers & Recent Orders */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-slide-up" style={{ animationDelay: "0.2s" }}>
         {/* Top Gainers */}
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
           <div className="flex items-center justify-between p-5 border-b border-gray-100">

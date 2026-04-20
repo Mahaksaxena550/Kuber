@@ -65,7 +65,7 @@ export default function Register() {
       <Toaster position="top-right" />
 
       {/* Left side — Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-green-600 to-green-800 text-white flex-col justify-center items-center p-12">
+     <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-700 text-white flex-col justify-center items-center p-12">
         <h1 className="text-5xl font-bold mb-4">Kuber</h1>
         <p className="text-xl text-green-200 text-center max-w-md">
           Start your trading journey with AI-powered insights
@@ -92,7 +92,7 @@ export default function Register() {
 
       {/* Right side — Register Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md animate-fade-in">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
             <h1 className="text-3xl font-bold text-green-600">Kuber</h1>

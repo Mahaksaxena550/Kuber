@@ -39,7 +39,7 @@ export default function Login() {
       <Toaster position="top-right" />
 
       {/* Left side — Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 to-blue-800 text-white flex-col justify-center items-center p-12">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white flex-col justify-center items-center p-12">
         <h1 className="text-5xl font-bold mb-4">Kuber</h1>
         <p className="text-xl text-blue-200 text-center max-w-md">
           Smart trading platform for stocks & crypto with AI-powered suggestions
@@ -66,7 +66,7 @@ export default function Login() {
 
       {/* Right side — Login Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md animate-fade-in">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
             <h1 className="text-3xl font-bold text-blue-600">Kuber</h1>

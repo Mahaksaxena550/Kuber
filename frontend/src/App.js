@@ -13,6 +13,7 @@ import Orders from "./pages/Orders";
 import Subscriptions from "./pages/Subscriptions";
 import AiBot from "./pages/AiBot";
 import Profile from "./pages/Profile";
+import Crypto from "./pages/Crypto";
 
 export default function App() {
   return (
@@ -84,8 +85,7 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Layout>
-                  <h1 className="text-2xl font-bold text-gray-900">Crypto</h1>
-                  <p className="text-gray-500 mt-2">Crypto page coming soon...</p>
+                  <Crypto />
                 </Layout>
               </ProtectedRoute>
             }
